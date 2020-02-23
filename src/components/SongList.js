@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import NewSongForm from './NewSongForm';
 import uuid from 'uuid/v1';
 
@@ -9,11 +9,20 @@ const SongList = () => {
         {title: "Aurora Dreams", id:2},
         {title: "Charlie Brown", id:3}
     ]);
+    const [age, setAge] = useState(20);
 
     const addSong = (title) => 
     {
         setSongs([...songs, {title, id:uuid()}]);
     }
+
+    useEffect(()=> {
+       console.log("use effect hooks",songs); 
+    }, [songs]);
+
+    useEffect(()=> {
+        console.log("use effect hooks",age); 
+     }, [age]);
 
     return (
         <div className="song-list">
@@ -26,6 +35,9 @@ const SongList = () => {
                 </ul>
                 <NewSongForm 
                     addSong = {addSong}/>
+                <button onClick={()=>setAge(age+1)}>
+                    Add 1 to age: {age}
+                </button>
             </div>
     ); //end of return()
 } //end of SongList func comp
